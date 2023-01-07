@@ -93,3 +93,18 @@ function showOrHideResults() {
 createTable(data);
 
 // Eventos
+
+[heightInput, weightInput].forEach((el) => {
+    el.addEventListener("input", (e) => {
+        const updateValue = validDigits(e.target.value);
+        e.target.value = updateValue;
+    });
+});
+calcBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const weight = +weightInput.value.replace(",",".");
+    const height = +heightInput.value.replace(",",".");
+    console.log(weight,height);
+
+}
+)
