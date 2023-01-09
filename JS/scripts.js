@@ -105,6 +105,14 @@ calcBtn.addEventListener("click", (e) => {
     const weight = +weightInput.value.replace(",",".");
     const height = +heightInput.value.replace(",",".");
     console.log(weight,height);
+    if (!weight || !height) return;
+    const imc = calcImc(height, weight);
+    let info;
+    data.forEach((item) => {
+        if (imc >= item.min && imc <= item.max) {
+            info = item.info;
+        }
+    } );
 
 }
 )
