@@ -1,3 +1,5 @@
+
+
 // IMC DATA
 
 const data = [
@@ -18,14 +20,14 @@ const data = [
     {
         min: 25,
         max: 29.9,
-        classification: "Entre 25 e 29,9",
+        classification: "Entre 25,0 e 29,9",
         info: "Sobrepeso",
         obesity: "I", 
     },
     {
         min: 30,
         max: 39.9,
-        classification: "Entre 30 e 39,9",
+        classification: "Entre 30,0 e 39,9",
         info: "Obesidade",
         obesity: "II",
     },
@@ -74,11 +76,16 @@ function createTable(data) {
     });
     
 };
-function calcIMC(height, weight) {
+function validDigits(text) {
+    
+    return text.replace(/[^0-9,]/g, "");
+
+}
+function calcImc(height, weight) {
     const imc = (weight / (height*height)).toFixed(1);
     return imc;
 }
-function cleanInput() {
+function cleanInputs() {
     heightInput.value = "";
     weightInput.value = "";
     imcNumber.className = "";
@@ -112,7 +119,41 @@ calcBtn.addEventListener("click", (e) => {
         if (imc >= item.min && imc <= item.max) {
             info = item.info;
         }
-    } );
+    });
+    if (!info) return;
+    imcNumber.innerText = imc;
+    imcInfo.innerText = info;
 
-}
-)
+    switch (info) {
+        case "Magreza":
+        imcNumber.classList.add("low");
+        imcInfo.classList.add("low");
+        break;
+        case "Normal":
+        imcNumber.classList.add("good");
+        imcInfo.classList.add("good");
+        break;
+        case "Sobrepeso":
+        imcNumber.classList.add("low");
+        imcInfo.classList.add("low");
+        break;
+        case "Obesidade":
+        imcNumber.classList.add("medium");
+        imcInfo.classList.add("medium");
+        break;
+        case "Obesidade grave":
+        imcNumber.classList.add("high");
+        imcInfo.classList.add("high");
+        break;
+    }
+    showOrHideResults();
+
+});
+clearBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    cleanInputs();
+});
+backBtn.addEventListener("click", (e) => {
+cleanInputs();
+showOrHideResults();
+});

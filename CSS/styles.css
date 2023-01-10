@@ -13,7 +13,7 @@ body {
     color: #fff;
 }
 .hide {
-    /*display: none !important;*/
+    display: none !important;
 }
 .container {
     min-width: 350px;
